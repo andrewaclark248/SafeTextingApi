@@ -1,0 +1,26 @@
+{
+  "name": "safetextingapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd ./src && npm install",
+    "build": "cd ./src  && npm run build",
+    "install:build": "npm run install && npm run build",
+    "deploy": "npm run install:build && cd ./src && npm run deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewaclark248/SafeTextingApi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewaclark248/SafeTextingApi/issues"
+  },
+  "homepage": "https://github.com/andrewaclark248/SafeTextingApi#readme",
+  "dependencies": {
+    "typescript": "^5.1.6"
+  }
+}
