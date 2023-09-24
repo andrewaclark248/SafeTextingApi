@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:ngrok": "ngrok http --hostname=safetexting.ngrok.dev 5000",
     "start": "ts-node src/app.ts",
     "install": "cd ./src && npm install",
     "build": "cd ./src && npm run build",
