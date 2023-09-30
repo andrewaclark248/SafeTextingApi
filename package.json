@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "howToDebug": "run dev:debug && go to VS debug and click start && add breakpoint",
     "dev:debug": "nodemon --inspect src/app.ts",
-    "start:ngrok": "ngrok http --hostname=safetexting.ngrok.dev 5000",
-    "start": "npx nodemon ./src/app.ts",
     "dev": "nodemon src/app.ts",
+    "start:ngrok": "ngrok http --hostname=safetexting.ngrok.dev 5000",
     "install": "cd ./src && npm install",
     "build": "cd ./src && npm run build",
     "install:build": "npm run install && npm run build",
