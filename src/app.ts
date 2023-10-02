@@ -1,20 +1,14 @@
 
 import express from 'express';
 import { VerifyToken } from "./middleware/VerifyToken"
-import MyDataSource from './app-data-source'
 
 //api routes
 import phoneRoutes from './routes/api/phoneRoutes';
 import userRoutes from './routes/api/userRoutes';
 
+import connection from "./database";
 
-MyDataSource.initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization", err)
-    })
+connection.sync();
 
 
 const app = express()

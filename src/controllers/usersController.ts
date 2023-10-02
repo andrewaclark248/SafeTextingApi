@@ -1,7 +1,7 @@
 import { response } from "express";
 import { Request, Response } from 'express';
-import { User } from './../entity/User'
-
+import { validate } from "class-validator"
+import { User } from './../models/User'
 
 
 /**
@@ -12,12 +12,12 @@ import { User } from './../entity/User'
  * @returns array of numbers
  */
 export async function create(req: Request, res: Response) {
-    let x = req;
-    console.log("breaker here")
-    //const user = new User();
-    //user.email = "andrewemail@gmail.com"
-    //await user.save()
-    
-    res.json({msg: "my message"})
+    const email = req.body.email;
+    User.create({ email: email }).then(() => {
+        res.json({success: true})
+    }).catch(() => {
+        res.status(422).json({success: false})
+    })
+
 }
 
