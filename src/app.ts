@@ -16,7 +16,7 @@ const PORT = 5000;
 
 
 app.use(express.json())
-//app.use(VerifyToken);
+app.use(VerifyToken);
 
 app.listen(PORT, () => {
   console.log(`app listening on port ${PORT}`)
