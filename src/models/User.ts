@@ -1,26 +1,13 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
 
-@Table({
-  timestamps: true,
-  tableName: "users",
-})
-export class User extends Model {
+import { Entity, Property, PrimaryKey } from "@mikro-orm/core";
 
-    @Column({
-        type: DataType.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    })
-    id: string;
+@Entity()
+export class User {
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            isEmail: true
-        }
-    })
+    @PrimaryKey()
+    id!: number;
+    
+    @Property()
     email!: string;
-
+  
 }

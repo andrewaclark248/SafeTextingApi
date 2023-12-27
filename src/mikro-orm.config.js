@@ -1,0 +1,9 @@
+
+export default {
+    entities: ['./src/models/*'], 
+    dbName: 'safe_texting_api_development',
+    type: 'postgresql',
+    user: "aclark",
+    host: "localhost"
+ }
+

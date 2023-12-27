@@ -6,28 +6,32 @@ import { VerifyToken } from "./middleware/VerifyToken"
 import phoneRoutes from './routes/api/phoneRoutes';
 import userRoutes from './routes/api/userRoutes';
 
-import connection from "./database";
+import { initOrm } from './database'
+import { RequestContext } from "@mikro-orm/core";
 
-connection.sync();
+(async () => {
 
+  //createDatase
+  const orm = await initOrm();
 
-const app = express()
-const PORT = 5000;
+  const app = express()
+  const PORT = 5000;
+  
+  
+  app.use(express.json())
+  //app.use(VerifyToken);
+  
+  app.listen(PORT, () => {
+    console.log(`app listening on port ${PORT}`)
+  })
+  
+  app.use('/api', phoneRoutes);
+  app.use('/api', userRoutes);
+  
 
+  app.use((req, res, next) => {
+    RequestContext.create(orm.em, next);
+  });
 
-app.use(express.json())
-app.use(VerifyToken);
+})();
 
-app.listen(PORT, () => {
-  console.log(`app listening on port ${PORT}`)
-})
-
-app.use('/api', phoneRoutes);
-app.use('/api', userRoutes);
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.log(reason)
-})
-process.on('uncaughtException', (reason) => {
-  console.log(reason)
-})
