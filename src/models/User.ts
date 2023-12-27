@@ -11,3 +11,5 @@ export class User {
     email!: string;
   
 }
+//mikro-orm migration:up 
+// mikro-orm migration:create
