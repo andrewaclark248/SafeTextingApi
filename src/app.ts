@@ -5,6 +5,7 @@ import { VerifyToken } from "./middleware/VerifyToken"
 //api routes
 import phoneRoutes from './routes/api/phoneRoutes';
 import userRoutes from './routes/api/userRoutes';
+import groupRoutes from './routes/api/groupRoutes';
 
 import { initOrm } from './database'
 import { RequestContext } from "@mikro-orm/core";
@@ -31,6 +32,9 @@ import { RequestContext } from "@mikro-orm/core";
   
   app.use('/api', phoneRoutes);
   app.use('/api', userRoutes);
+  app.use('/api', groupRoutes);
+
+  
   
 
 
