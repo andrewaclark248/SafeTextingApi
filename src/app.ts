@@ -20,6 +20,10 @@ import { RequestContext } from "@mikro-orm/core";
   
   app.use(express.json())
   //app.use(VerifyToken);
+
+  app.use((req, res, next) => {
+    RequestContext.create(orm.em, next);
+  });
   
   app.listen(PORT, () => {
     console.log(`app listening on port ${PORT}`)
@@ -29,9 +33,7 @@ import { RequestContext } from "@mikro-orm/core";
   app.use('/api', userRoutes);
   
 
-  app.use((req, res, next) => {
-    RequestContext.create(orm.em, next);
-  });
+
 
 })();
 
