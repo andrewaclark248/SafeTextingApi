@@ -18,7 +18,8 @@ export async function initOrm() {
     type: 'postgresql',
     user: "aclark",
     host: "localhost",
-    metadataProvider: TsMorphMetadataProvider
+    metadataProvider: TsMorphMetadataProvider,
+    clientUrl: ""
   });
 
   return TextingAppOrm;
