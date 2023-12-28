@@ -16,13 +16,13 @@ import { RequestContext } from "@mikro-orm/core";
 export async function create(req: Request, res: Response) {
     const email = req.body.email;
 
-    let user = await RequestContext.getEntityManager()?.findOne(User, 2);
+    let user = new User();
+    user.email = email
+    const createdEmail = await RequestContext.getEntityManager()?.create(User, {email: email});
 
-    
-    //const user = await orm.em.findOne(User, 1);
-
-    console.log("create orm = ", user)
+    await RequestContext.getEntityManager()?.persistAndFlush(createdEmail!);
 
     res.send("create user")
+
 }
 

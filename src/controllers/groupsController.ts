@@ -27,12 +27,8 @@ export async function create(req: Request, res: Response) {
 
     let group = new Group();
     group.name = name
-
-    console.log("call create method")
-
     const createdGroup = await RequestContext.getEntityManager()?.create(Group, {name: name});
 
-    console.log("createdGroup", createdGroup)
     await RequestContext.getEntityManager()?.persistAndFlush(createdGroup!);
 
     res.send("created group")
