@@ -17,7 +17,8 @@ import { Group } from '../models/Group'
  */
 export async function index(req: Request, res: Response) {
     
-    res.json({msg: "my message"})
+    res.status(201).json({success: true, msg: "Successfully created group"})
+
 }
 
 
@@ -31,6 +32,6 @@ export async function create(req: Request, res: Response) {
 
     await RequestContext.getEntityManager()?.persistAndFlush(createdGroup!);
 
-    res.send("created group")
+    res.status(201).json({success: true, msg: "Successfully created group"})
 }
 

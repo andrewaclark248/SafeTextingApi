@@ -17,7 +17,7 @@ export async function create(req: Request, res: Response) {
     const email = req.body.email;
 
     let user = new User();
-    user.email = email
+    user.email = email;
     const createdEmail = await RequestContext.getEntityManager()?.create(User, {email: email});
 
     await RequestContext.getEntityManager()?.persistAndFlush(createdEmail!);
