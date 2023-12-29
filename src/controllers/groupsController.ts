@@ -6,6 +6,7 @@ import { RequestContext } from "@mikro-orm/core";
 
 
 import { Group } from '../models/Group'
+import { User } from '../models/User'
 
 
 /**
@@ -17,21 +18,37 @@ import { Group } from '../models/Group'
  */
 export async function index(req: Request, res: Response) {
     
-    res.status(201).json({success: true, msg: "Successfully created group"})
+    res.status(200).json({success: true, msg: "Successfully created group"})
 
 }
 
-
+// POST: /api/groups
 export async function create(req: Request, res: Response) {
     
-    const name = req.body.name;
+    //find user
+    const email = req.user?.email;
+    const name = req.body?.name;
 
-    let group = new Group();
-    group.name = name
-    const createdGroup = await RequestContext.getEntityManager()?.create(Group, {name: name});
+    let user = await RequestContext.getEntityManager()?.findOne(User, { email: email })
 
-    await RequestContext.getEntityManager()?.persistAndFlush(createdGroup!);
+    console.log("user", user)
+    console.log("email", email)
 
-    res.status(201).json({success: true, msg: "Successfully created group"})
+    if (user) {
+        let group = new Group();
+        group.name = name;
+        group.user = user;
+
+        const createdGroup = await RequestContext.getEntityManager()?.create(Group, group);
+
+        await RequestContext.getEntityManager()?.persistAndFlush(createdGroup!);
+        res.status(200).json({success: true, msg: "Successfully created group"})
+
+    } else {
+        res.status(422).json({success: false, msg: "Could not find user"})
+
+    }
+
+    
 }
 

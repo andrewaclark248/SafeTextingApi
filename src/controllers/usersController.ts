@@ -14,6 +14,7 @@ import { RequestContext } from "@mikro-orm/core";
  * @returns array of numbers
  */
 export async function create(req: Request, res: Response) {
+
     const email = req.body.email;
 
     let user = new User();

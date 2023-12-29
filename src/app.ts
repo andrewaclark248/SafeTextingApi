@@ -10,17 +10,23 @@ import groupRoutes from './routes/api/groupRoutes';
 import { initOrm } from './database'
 import { RequestContext } from "@mikro-orm/core";
 
+import cors from 'cors';
+
+
 (async () => {
 
   //createDatase
   const orm = await initOrm();
 
+
   const app = express()
   const PORT = 5000;
   
   
+  app.use(cors());
+
   app.use(express.json())
-  //app.use(VerifyToken);
+  app.use(VerifyToken);
 
   app.use((req, res, next) => {
     RequestContext.create(orm.em, next);
