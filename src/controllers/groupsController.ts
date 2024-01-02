@@ -12,13 +12,21 @@ import { User } from '../models/User'
 /**
  * List phone numbers for a user
  *
- * @param userId - User who's phone numbers we want to return
- * @param areaCode - Area code to search by
- * @returns array of numbers
+ * @param user - firebase user
+ * @returns array of groups
  */
 export async function index(req: Request, res: Response) {
     
-    res.status(200).json({success: true, msg: "Successfully created group"})
+    //find user
+    const email = req.user?.email;
+
+    let user = await RequestContext.getEntityManager()?.findOne(User, { email: email })
+
+    let groups = await RequestContext.getEntityManager()?.find(Group, { user: user })
+
+    console.log("api groups = ", groups)
+
+    res.status(200).json({success: true, groups: groups})
 
 }
 
