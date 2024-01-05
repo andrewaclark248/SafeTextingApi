@@ -10,7 +10,7 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 
 
 export async function initOrm() {
-  if (process.env.NODE_ENV == "development") {
+  /**if (process.env.NODE_ENV == "development") {
     console.log("hit db dev flow")
     const TextingAppOrm = await MikroORM.init({
       entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
@@ -23,13 +23,13 @@ export async function initOrm() {
       clientUrl: ""
     });
     return TextingAppOrm;
-  } else {
+  } else {**/
     console.log("hit db staging flow")
 
     const TextingAppOrm = await MikroORM.init({
       entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
       entities: ['./models'], // path to our TS entities (src), relative to `baseDir`
-      dbName: 'safe_texting_api_development',
+      //dbName: 'safe_texting_api_development',
       type: 'postgresql',
       //user: "aclark",
       //host: "localhost",
@@ -38,7 +38,7 @@ export async function initOrm() {
     });
     return TextingAppOrm;
 
-  }
+  //}
 
 
 
