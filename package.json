@@ -8,11 +8,9 @@
     "dev:debug": "nodemon --inspect src/app.ts",
     "start": "nodemon src/app.ts --inspect",
     "start:ngrok": "ngrok http --hostname=safetexting.ngrok.dev 5000",
-    "install": "cd ./src && npm install",
     "build": "cd ./src && npm run build",
     "migrate": "npx mikro-orm migration:up",
-    "install:build": "npm run install && npm run build",
-    "deploy": "npm run install:build && npm run migrate && npm run start"
+    "deploy": "npm install && npm run migrate && npm run start"
   },
   "repository": {
     "type": "git",
