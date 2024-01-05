@@ -36,7 +36,7 @@ export async function initOrm() {
       metadataProvider: TsMorphMetadataProvider,
       clientUrl: process.env.DATABASE_URL,
       driverOptions: {
-        connection: { ssl: false},// rejectUnauthorized: false},
+        connection: { ssl: (process.env.DB_ENABLE_SSL == "true")}// rejectUnauthorized: false},
       }
     });
     return TextingAppOrm;

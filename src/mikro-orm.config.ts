@@ -7,7 +7,7 @@ export default {
     //host: "localhost"
     clientUrl: process.env.DATABASE_URL,
     driverOptions: {
-        connection: { ssl: false}//(process.env.DB_ENABLE_SSL == "true"), rejectUnauthorized: false },
+        connection: { ssl: (process.env.DB_ENABLE_SSL == "true")}//(process.env.DB_ENABLE_SSL == "true"), rejectUnauthorized: false },
     }
 
  }
