@@ -11,6 +11,7 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 
 export async function initOrm() {
   if (process.env.NODE_ENV == "development") {
+    console.log("hit db dev flow")
     const TextingAppOrm = await MikroORM.init({
       entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
       entities: ['./models'], // path to our TS entities (src), relative to `baseDir`
@@ -23,6 +24,8 @@ export async function initOrm() {
     });
     return TextingAppOrm;
   } else {
+    console.log("hit db staging flow")
+
     const TextingAppOrm = await MikroORM.init({
       entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
       entities: ['./models'], // path to our TS entities (src), relative to `baseDir`
