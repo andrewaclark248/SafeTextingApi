@@ -33,8 +33,6 @@ export async function initOrm() {
       metadataProvider: TsMorphMetadataProvider,
       clientUrl: process.env.DATABASE_URL
     });
-
-
     return TextingAppOrm;
 
   }
