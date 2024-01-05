@@ -10,19 +10,36 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 
 
 export async function initOrm() {
+  if (process.env.NODE_ENV == "development") {
+    const TextingAppOrm = await MikroORM.init({
+      entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
+      entities: ['./models'], // path to our TS entities (src), relative to `baseDir`
+      dbName: 'safe_texting_api_development',
+      type: 'postgresql',
+      user: "aclark",
+      host: "localhost",
+      metadataProvider: TsMorphMetadataProvider,
+      clientUrl: ""
+    });
+    return TextingAppOrm;
+  } else {
+    const TextingAppOrm = await MikroORM.init({
+      entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
+      entities: ['./models'], // path to our TS entities (src), relative to `baseDir`
+      dbName: 'safe_texting_api_development',
+      type: 'postgresql',
+      //user: "aclark",
+      //host: "localhost",
+      metadataProvider: TsMorphMetadataProvider,
+      clientUrl: process.env.DATABASE_URL
+    });
 
-  const TextingAppOrm = await MikroORM.init({
-    entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
-    entities: ['./models'], // path to our TS entities (src), relative to `baseDir`
-    dbName: 'safe_texting_api_development',
-    type: 'postgresql',
-    user: "aclark",
-    host: "localhost",
-    metadataProvider: TsMorphMetadataProvider,
-    clientUrl: ""
-  });
 
-  return TextingAppOrm;
+    return TextingAppOrm;
+
+  }
+
+
 
 }
 

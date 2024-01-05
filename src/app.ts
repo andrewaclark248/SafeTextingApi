@@ -11,6 +11,7 @@ import { initOrm } from './database'
 import { RequestContext } from "@mikro-orm/core";
 
 import cors from 'cors';
+import 'dotenv/config'
 
 
 (async () => {
@@ -40,7 +41,6 @@ import cors from 'cors';
   app.use('/api', userRoutes);
   app.use('/api', groupRoutes);
 
-  
   
 
 
