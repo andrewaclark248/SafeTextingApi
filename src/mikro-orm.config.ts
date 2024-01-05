@@ -5,7 +5,10 @@ export default {
     type: 'postgresql',
     //user: "aclark",
     //host: "localhost"
-    clientUrl: process.env.DATABASE_URL
+    clientUrl: process.env.DATABASE_URL,
+    driverOptions: {
+        connection: { ssl: (process.env.DB_ENABLE_SSL == "true") },
+    }
 
  }
 
