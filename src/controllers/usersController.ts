@@ -1,8 +1,10 @@
 import { response } from "express";
 import { Request, Response } from 'express';
 import { validate } from "class-validator"
-import { User } from './../models/User'
+import { User } from '../models/User'
 
+import { initOrm} from './../database'
+import { RequestContext } from "@mikro-orm/core";
 
 /**
  * POST: users#create
@@ -12,12 +14,17 @@ import { User } from './../models/User'
  * @returns array of numbers
  */
 export async function create(req: Request, res: Response) {
+
     const email = req.body.email;
-    User.create({ email: email }).then(() => {
-        res.json({success: true})
-    }).catch(() => {
-        res.status(422).json({success: false})
-    })
+
+    let user = new User();
+    user.email = email;
+    const createdEmail  = await RequestContext.getEntityManager()?.create(User, {email: email});
+
+    await RequestContext.getEntityManager()?.persistAndFlush(createdEmail!);
+
+    res.status(200).json({success: true, msg: "Successfully created user"})
+
 
 }
 

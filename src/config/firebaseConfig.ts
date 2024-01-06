@@ -2,7 +2,7 @@ import { initializeApp, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import * as admin from 'firebase-admin';
 
-import serviceAccountKey from "./serviceAccountKey.json" //assert { type: "json" };
+import serviceAccountKey from "./serviceAccountKey.json"
 
 
 export interface ServiceAccount {

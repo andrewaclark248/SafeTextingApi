@@ -13,21 +13,6 @@ export type IAuthRequest = IRequestUser & {
   headers: { authorization: string };
 };
 
-type Programmer = {
-  name: string;
-  knownFor: string[];
-};
-
-
-
-
-
-
-/**export const VerifyToken = async (req: Request, res: Response, next: NextFunction) => {
-
-  return res.status(401).json({message: "Internal Error"})
-};****/
-
 
 
 export const VerifyToken = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,7 +25,7 @@ export const VerifyToken = async (req: Request, res: Response, next: NextFunctio
       return next();
     }
   } catch (e) {
-    return res.status(401).json({message: "Internal Error"})
+    return res.status(401).json({message: "Auth Failure"})
   }
 
   return res

@@ -1,26 +1,21 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
 
-@Table({
-  timestamps: true,
-  tableName: "users",
-})
-export class User extends Model {
+import { Entity, Property, PrimaryKey, OneToMany, Collection } from "@mikro-orm/core";
 
-    @Column({
-        type: DataType.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    })
-    id: string;
+import { Group } from './Group'
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            isEmail: true
-        }
-    })
+@Entity()
+export class User {
+
+    @PrimaryKey()
+    id!: number;
+    
+    @Property()
     email!: string;
 
+    @OneToMany(() => Group, group => group.user)
+    groups = new Collection<Group>(this);
+
+  
 }
+//mikro-orm migration:up 
+// mikro-orm migration:create
