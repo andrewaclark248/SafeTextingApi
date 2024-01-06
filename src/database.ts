@@ -29,15 +29,13 @@ export async function initOrm() {
     const TextingAppOrm = await MikroORM.init({
       entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
       entities: ['./src/models'], // path to our TS entities (src), relative to `baseDir`
-      //dbName: 'safe_texting_api_development',
       type: 'postgresql',
-      //user: "aclark",
-      //host: "localhost",
       metadataProvider: TsMorphMetadataProvider,
       clientUrl: process.env.DATABASE_URL,
       driverOptions: {
-        connection: { ssl: (process.env.DB_ENABLE_SSL == "true")}// rejectUnauthorized: false},
-      }
+        connection: { ssl: (process.env.DB_ENABLE_SSL == "true" ? { rejectUnauthorized: false } : false) },
+      },  
+
     });
     return TextingAppOrm;
 
