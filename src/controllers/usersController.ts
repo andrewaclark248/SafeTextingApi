@@ -19,11 +19,12 @@ export async function create(req: Request, res: Response) {
 
     let user = new User();
     user.email = email;
-    const createdEmail = await RequestContext.getEntityManager()?.create(User, {email: email});
+    const createdEmail  = await RequestContext.getEntityManager()?.create(User, {email: email});
 
     await RequestContext.getEntityManager()?.persistAndFlush(createdEmail!);
 
-    res.send("create user")
+    res.status(200).json({success: true, msg: "Successfully created user"})
+
 
 }
 

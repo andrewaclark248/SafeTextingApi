@@ -25,7 +25,7 @@ export const VerifyToken = async (req: Request, res: Response, next: NextFunctio
       return next();
     }
   } catch (e) {
-    return res.status(401).json({message: "Internal Error"})
+    return res.status(401).json({message: "Auth Failure"})
   }
 
   return res

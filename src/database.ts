@@ -24,7 +24,6 @@ export async function initOrm() {
     });
     return TextingAppOrm;
   } else {**/
-    console.log("hit db staging flow")
 
     const TextingAppOrm = await MikroORM.init({
       entitiesTs: ['./src/models'], // path to our JS entities (dist), relative to `baseDir`
@@ -40,7 +39,6 @@ export async function initOrm() {
     });
     return TextingAppOrm;
 
-  //}
 
 
 
