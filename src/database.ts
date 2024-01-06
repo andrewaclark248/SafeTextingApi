@@ -34,7 +34,8 @@ export async function initOrm() {
       clientUrl: process.env.DATABASE_URL,
       driverOptions: {
         connection: { ssl: (process.env.DB_ENABLE_SSL == "true" ? { rejectUnauthorized: false } : false) },
-      },  
+      },
+      migrations: { disableForeignKeys: false }
 
     });
     return TextingAppOrm;
