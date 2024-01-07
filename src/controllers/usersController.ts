@@ -2,6 +2,7 @@ import { response } from "express";
 import { Request, Response } from 'express';
 import { validate } from "class-validator"
 import { User } from '../models/User'
+import { Organization } from '../models/Organization'
 
 import { initOrm} from './../database'
 import { RequestContext } from "@mikro-orm/core";
@@ -16,12 +17,18 @@ import { RequestContext } from "@mikro-orm/core";
 export async function create(req: Request, res: Response) {
 
     const email = req.body.email;
+    const org_name = req.body.org_name;
 
     let user = new User();
     user.email = email;
-    const createdEmail  = await RequestContext.getEntityManager()?.create(User, {email: email});
+    let org = new Organization();
+    org.name = org_name;
+    user.organization = org;
 
-    await RequestContext.getEntityManager()?.persistAndFlush(createdEmail!);
+
+    const persistUser  = await RequestContext.getEntityManager()?.create(User, user);
+
+    await RequestContext.getEntityManager()?.persistAndFlush(persistUser!);
 
     res.status(200).json({success: true, msg: "Successfully created user"})
 

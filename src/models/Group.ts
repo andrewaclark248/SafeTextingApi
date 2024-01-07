@@ -1,6 +1,7 @@
 
-import { Entity, Property, PrimaryKey, ManyToOne } from "@mikro-orm/core";
+import { Entity, Property, PrimaryKey, ManyToOne, ManyToMany, Collection } from "@mikro-orm/core";
 import { User } from './User'
+import { People } from './People'
 
 @Entity()
 export class Group {
@@ -13,6 +14,9 @@ export class Group {
   
     @ManyToOne() // plain decorator is enough, type will be sniffer via reflection!
     user!: User;
+
+    @ManyToMany(() => People, 'groups', { owner: true })
+    people = new Collection<People>(this);
 
 }
 

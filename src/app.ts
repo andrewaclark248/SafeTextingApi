@@ -6,6 +6,9 @@ import { VerifyToken } from "./middleware/VerifyToken"
 import phoneRoutes from './routes/api/phoneRoutes';
 import userRoutes from './routes/api/userRoutes';
 import groupRoutes from './routes/api/groupRoutes';
+import peopleRoutes from './routes/api/peopleRoutes';
+
+
 
 import { initOrm } from './database'
 import { RequestContext } from "@mikro-orm/core";
@@ -16,7 +19,7 @@ import 'dotenv/config'
 
 (async () => {
 
-  //createDatase
+  //create database
   const orm = await initOrm();
 
 
@@ -40,8 +43,7 @@ import 'dotenv/config'
   app.use('/api', phoneRoutes);
   app.use('/api', userRoutes);
   app.use('/api', groupRoutes);
-
-  
+  app.use('/api', peopleRoutes);
 
 
 
