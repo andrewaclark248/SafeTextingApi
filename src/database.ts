@@ -15,7 +15,8 @@ export async function initOrm() {
       driverOptions: {
         connection: { ssl: (process.env.DB_ENABLE_SSL == "true" ? { rejectUnauthorized: false } : false) },
       },
-      migrations: { disableForeignKeys: false }
+      migrations: { disableForeignKeys: false },
+      debug: true
 
     });
     return TextingAppOrm;

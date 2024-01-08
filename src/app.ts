@@ -7,7 +7,7 @@ import phoneRoutes from './routes/api/phoneRoutes';
 import userRoutes from './routes/api/userRoutes';
 import groupRoutes from './routes/api/groupRoutes';
 import peopleRoutes from './routes/api/peopleRoutes';
-
+import groupsPeopleRoutes from './routes/api/groupsPeopleRoutes';
 
 
 import { initOrm } from './database'
@@ -44,7 +44,7 @@ import 'dotenv/config'
   app.use('/api', userRoutes);
   app.use('/api', groupRoutes);
   app.use('/api', peopleRoutes);
-
+  app.use('/api', groupsPeopleRoutes);
 
 
 })();
