@@ -1,7 +1,8 @@
 
-import { Entity, Property, PrimaryKey, OneToMany, Collection } from "@mikro-orm/core";
+import { Entity, Property, PrimaryKey, OneToMany, Collection, ManyToOne } from "@mikro-orm/core";
 
 import { Group } from './Group'
+import { Organization } from './Organization'
 
 @Entity()
 export class User {
@@ -14,6 +15,9 @@ export class User {
 
     @OneToMany(() => Group, group => group.user)
     groups = new Collection<Group>(this);
+ 
+    @ManyToOne()
+    organization: Organization;
 
   
 }
