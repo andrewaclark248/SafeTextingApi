@@ -12,25 +12,17 @@ import { EntityManager } from '@mikro-orm/postgresql'; // or any other SQL drive
 // Add person to group
 export async function create(req: Request, res: Response) {
     
-    //find user
-    const email = req.user?.email;
-    const group_id = req.body?.group_id;
+    const personId = req.body?.personId;
+    const groupId = req.body?.groupId;
 
-    let user = await RequestContext.getEntityManager()?.findOne(User, { email: email })
-    let group = await RequestContext.getEntityManager()?.findOne(Group, { id: group_id })
+    let person = await RequestContext.getEntityManager()?.findOne(People, { id: personId })
+    let group = await RequestContext.getEntityManager()?.findOne(Group, { id: groupId })
 
-    console.log("user", user)
-    console.log("group", group)
+    if (person && group) {
+        person.groups.add(group)
+        await RequestContext.getEntityManager()?.persistAndFlush(person);
 
-    if (user) {
-        let group = new Group();
-        //group.name = name;
-        group.user = user;
-
-        const createdGroup = await RequestContext.getEntityManager()?.create(Group, group);
-
-        await RequestContext.getEntityManager()?.persistAndFlush(createdGroup!);
-        res.status(200).json({success: true, msg: "Successfully created group"})
+        res.status(200).json({success: true, msg: "Successfully added person to group"})
 
     } else {
         res.status(422).json({success: false, msg: "Could not find user"})
@@ -53,8 +45,6 @@ export async function index(req: Request, res: Response) {
     const groups = await RequestContext.getEntityManager()?.find(Group, Number(groupId))
     const user = await RequestContext.getEntityManager()?.findOne(User, { email: email })
 
-    console.log("not in group bool = ", Boolean(notInGroup))
-
     if (Boolean(notInGroup)) {
         const em = await RequestContext.getEntityManager() as EntityManager;
         const result = await em.createQueryBuilder(People).select("*").from("group_people").where({group_id: groupId}).execute();
@@ -75,3 +65,32 @@ export async function index(req: Request, res: Response) {
     
 }
 
+
+
+
+// DELETE: /api/group_people
+// Add person to group
+export async function destroy(req: Request, res: Response) {
+
+    const personId = req.body?.personId;
+    const groupId = req.body?.groupId;
+
+    let person = await RequestContext.getEntityManager()?.findOne(People, { id: personId }, { populate: ['groups'] })
+    let group = await RequestContext.getEntityManager()?.findOne(Group, { id: groupId }, { populate: ['people'] })
+
+
+
+    if (person && group) {
+        group.people.remove(person)
+
+        await RequestContext.getEntityManager()?.persistAndFlush(group);
+
+        res.status(200).json({success: true, msg: "Successfully removed person from group"})
+
+    } else {
+        res.status(422).json({success: false, msg: "Could not find user"})
+
+    }
+
+    
+}
