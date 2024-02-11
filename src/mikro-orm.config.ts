@@ -10,7 +10,6 @@ export default {
         connection: { ssl: (process.env.DB_ENABLE_SSL == "true" ? { rejectUnauthorized: false } : false) },
     },
     migrations: { disableForeignKeys: false }
-
  }
 
 

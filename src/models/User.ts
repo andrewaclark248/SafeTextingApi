@@ -3,6 +3,7 @@ import { Entity, Property, PrimaryKey, OneToMany, Collection, ManyToOne } from "
 
 import { Group } from './Group'
 import { Organization } from './Organization'
+import { Phone } from './Phone'
 
 @Entity()
 export class User {
@@ -19,6 +20,8 @@ export class User {
     @ManyToOne()
     organization: Organization;
 
+    @OneToMany(() => Phone, phone => phone.user)
+    phones = new Collection<Phone>(this);
   
 }
 //mikro-orm migration:up 

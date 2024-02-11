@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "howToDebug": "run dev:debug && go to VS debug and click start && add breakpoint",
     "dev:debug": "nodemon --inspect src/app.ts",
     "start": "nodemon --inspect src/app.ts",
     "start:ngrok": "ngrok http --hostname=safetexting.ngrok.dev 5000",
