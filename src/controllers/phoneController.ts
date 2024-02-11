@@ -16,8 +16,12 @@ import twilio from "twilio";
  * @returns array of numbers
  */
 export async function index(req: Request, res: Response) {
-    
-    res.json({msg: "my message"})
+    let email = req.user?.email;
+    let user = await RequestContext.getEntityManager()?.findOne(User, { email: email });
+
+    let phones = await RequestContext.getEntityManager()?.find(Phone, { user: user });
+    let numbers = phones?.map((phone) => { return phone.number })
+    res.status(200).json({success: true, numbers: numbers})
 }
 
 
@@ -51,7 +55,7 @@ export async function index(req: Request, res: Response) {
 //POST: Create phone number
 export async function post(req: Request, res: Response) {
     const phoneNumbers = req.body.phoneNumbers;
-    console.log("phoneNumber = ", phoneNumbers)
+    //console.log("phoneNumber = ", phoneNumbers)
 
     phoneNumbers.forEach((number: string) => {
         createPhoneNumber(number, req.user?.email).then(() => {
@@ -78,13 +82,14 @@ export async function createPhoneNumber(number: string, email: string) {
     formatedNumber = formatedNumber.replace(')', '');
     formatedNumber = formatedNumber.replace('-', '');
     formatedNumber = "+1" + formatedNumber;
-    console.log("formatedNumber = ", formatedNumber)
 
-    //await client.incomingPhoneNumbers.create({phoneNumber: formatedNumber})
+    await client.incomingPhoneNumbers.create({phoneNumber: formatedNumber})
 
 
     let user = await RequestContext.getEntityManager()?.findOne(User, { email: email })
         
+    console.log("email = ", email)
+
     if (user) {
         console.log("user found")
         let phone = new Phone();

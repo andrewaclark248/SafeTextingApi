@@ -33,7 +33,7 @@ dotenv.config({ path: `${__dirname}/.env` });
   app.use(cors());
 
   app.use(express.json())
-  //app.use(VerifyToken);
+  app.use(VerifyToken);
 
   app.use((req, res, next) => {
     RequestContext.create(orm.em, next);
