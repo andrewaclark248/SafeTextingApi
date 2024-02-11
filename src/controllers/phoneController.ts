@@ -1,5 +1,8 @@
 import { response } from "express";
 import { Request, Response } from 'express';
+import { RequestContext } from "@mikro-orm/core";
+import { User } from '../models/User'
+import { Phone } from '../models/Phone'
 
 import twilio from "twilio";
 
@@ -51,7 +54,7 @@ export async function post(req: Request, res: Response) {
     console.log("phoneNumber = ", phoneNumbers)
 
     phoneNumbers.forEach((number: string) => {
-        createPhoneNumber(number).then(() => {
+        createPhoneNumber(number, req.user?.email).then(() => {
             console.log("buy phone number")
         })
     })
@@ -62,7 +65,7 @@ export async function post(req: Request, res: Response) {
    //   .then(incoming_phone_number => console.log(incoming_phone_number.sid));
 }
 
-export async function createPhoneNumber(number: string) {
+export async function createPhoneNumber(number: string, email: string) {
     const accountSid = process.env.ACCOUNT_SID;
     const authToken = process.env.AUTH_TOKEN;
     console.log("accountSid = ", accountSid == "AC7c7199e208b690e883c090088f0654cc")
@@ -77,8 +80,21 @@ export async function createPhoneNumber(number: string) {
     formatedNumber = "+1" + formatedNumber;
     console.log("formatedNumber = ", formatedNumber)
 
-    client.incomingPhoneNumbers.create({phoneNumber: formatedNumber})
-        .then(incoming_phone_number => console.log(incoming_phone_number.sid));
+    //await client.incomingPhoneNumbers.create({phoneNumber: formatedNumber})
+
+
+    let user = await RequestContext.getEntityManager()?.findOne(User, { email: email })
+        
+    if (user) {
+        console.log("user found")
+        let phone = new Phone();
+        phone.number = formatedNumber;
+        phone.user = user;
+
+        const persistPhone  = await RequestContext.getEntityManager()?.create(Phone, phone);
+        await RequestContext.getEntityManager()?.persistAndFlush(persistPhone!);
+    }
+
 
 }
 
