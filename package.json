@@ -6,7 +6,7 @@
   "scripts": {
     "howToDebug": "run dev:debug && go to VS debug and click start && add breakpoint",
     "dev:debug": "nodemon --inspect src/app.ts",
-    "start": "nodemon src/app.ts --inspect",
+    "start": "nodemon --inspect src/app.ts",
     "start:ngrok": "ngrok http --hostname=safetexting.ngrok.dev 5000",
     "migrate": "npx mikro-orm migration:up",
     "deploy": "npm install && npm run migrate && npm run start"
@@ -41,6 +41,7 @@
     "sequelize": "^6.33.0",
     "sequelize-typescript": "^2.1.5",
     "swagger-ui-express": "^5.0.0",
+    "twilio": "^4.21.0",
     "typescript": "^5.1.6"
   },
   "devDependencies": {

@@ -15,6 +15,9 @@ import { RequestContext } from "@mikro-orm/core";
 
 import cors from 'cors';
 import 'dotenv/config'
+//const dotenv = require('dotenv');
+import dotenv from "dotenv"
+dotenv.config({ path: `${__dirname}/.env` });
 
 
 (async () => {
@@ -30,7 +33,7 @@ import 'dotenv/config'
   app.use(cors());
 
   app.use(express.json())
-  app.use(VerifyToken);
+  //app.use(VerifyToken);
 
   app.use((req, res, next) => {
     RequestContext.create(orm.em, next);
