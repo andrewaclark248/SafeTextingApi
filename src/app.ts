@@ -42,7 +42,9 @@ dotenv.config({ path: `${__dirname}/.env` });
     }
   }
   
-  app.use(cors(whitelist)) 
+  app.use(cors({
+    origin: 'https://safetexting-staging-19857cad8f2b.herokuapp.com'
+  })) 
   
   app.use(express.json())
   app.use(VerifyToken);
