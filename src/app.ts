@@ -32,18 +32,11 @@ dotenv.config({ path: `${__dirname}/.env` });
 
   const whitelist = ['https://safetexting-staging-19857cad8f2b.herokuapp.com']; // assuming front-end application is running on localhost port 3000
 
-  const corsOptions = {
-    origin: function (origin: any, callback: any) {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    }
-  }
+
   
   app.use(cors({
-    origin: 'https://safetexting-staging-19857cad8f2b.herokuapp.com'
+    origin: 'https://safetexting-staging-19857cad8f2b.herokuapp.com',
+    credentials: true
   })) 
   
   app.use(express.json())
