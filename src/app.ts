@@ -42,7 +42,7 @@ dotenv.config({ path: `${__dirname}/.env` });
     }
   }
   
-  app.use(cors(corsOptions));
+  app.use(cors(whitelist)) 
   
   app.use(express.json())
   app.use(VerifyToken);
