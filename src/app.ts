@@ -50,8 +50,10 @@ dotenv.config({ path: `${__dirname}/.env` });
   app.use('/api', groupRoutes);
   app.use('/api', peopleRoutes);
   app.use('/api', groupsPeopleRoutes);
-  
-  app.use(cors())
+
+  app.use(cors({
+    origin: "https://safetexting-staging-19857cad8f2b.herokuapp.com"
+  }))
 
 
 })();
