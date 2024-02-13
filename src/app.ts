@@ -34,9 +34,9 @@ dotenv.config({ path: `${__dirname}/.env` });
 
 
   app.use(cors({
-    origin: "safetexting-staging-19857cad8f2b.herokuapp.com"
+    origin: "https://safetexting-staging-19857cad8f2b.herokuapp.com"
   }))
-  
+
   app.use(express.json())
   app.use(VerifyToken);
 
