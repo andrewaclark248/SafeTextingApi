@@ -37,6 +37,13 @@ dotenv.config({ path: `${__dirname}/.env` });
     origin: "https://safetexting-staging-19857cad8f2b.herokuapp.com"
   }))
 
+  app.options("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://safetexting-staging-19857cad8f2b.herokuapp.com");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.sendStatus(204);
+  });
+
   app.use(express.json())
   app.use(VerifyToken);
 
