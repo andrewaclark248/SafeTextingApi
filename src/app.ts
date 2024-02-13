@@ -44,13 +44,14 @@ dotenv.config({ path: `${__dirname}/.env` });
     console.log(`app listening on port ${PORT}`)
   })
   
-  app.use(cors())
 
   app.use('/api', phoneRoutes);
   app.use('/api', userRoutes);
   app.use('/api', groupRoutes);
   app.use('/api', peopleRoutes);
   app.use('/api', groupsPeopleRoutes);
+  
+  app.use(cors())
 
 
 })();
