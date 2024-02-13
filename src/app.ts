@@ -40,7 +40,7 @@ dotenv.config({ path: `${__dirname}/.env` });
   app.options("/", (req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "https://safetexting-staging-19857cad8f2b.herokuapp.com");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
     next();
   });
 
