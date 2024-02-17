@@ -29,8 +29,7 @@ dotenv.config({ path: `${__dirname}/.env` });
   const app = express()
 
   const PORT = process.env.PORT || 5000
-
-  //app.use(cors());
+  app.use(cors());
 
 
   const whitelist = ['https://safetexting-staging-19857cad8f2b.herokuapp.com']; // assuming front-end application is running on localhost port 3000
@@ -49,11 +48,11 @@ dotenv.config({ path: `${__dirname}/.env` });
   })
 
 
-  app.use('/api', cors(), phoneRoutes);
-  app.use('/api', cors(), userRoutes);
-  app.use('/api', cors(), groupRoutes);
-  app.use('/api', cors(), peopleRoutes);
-  app.use('/api', cors(), groupsPeopleRoutes);
+  app.use('/api', phoneRoutes);
+  app.use('/api', userRoutes);
+  app.use('/api', groupRoutes);
+  app.use('/api', peopleRoutes);
+  app.use('/api', groupsPeopleRoutes);
 
 
 
