@@ -15,6 +15,9 @@ import { RequestContext } from "@mikro-orm/core";
 
 import cors from 'cors';
 import 'dotenv/config'
+//const dotenv = require('dotenv');
+import dotenv from "dotenv"
+dotenv.config({ path: `${__dirname}/.env` });
 
 
 (async () => {
@@ -24,10 +27,14 @@ import 'dotenv/config'
 
 
   const app = express()
+
   const PORT = process.env.PORT || 5000
-  
-  
   app.use(cors());
+
+
+  const whitelist = ['https://safetexting-staging-19857cad8f2b.herokuapp.com']; // assuming front-end application is running on localhost port 3000
+
+
 
   app.use(express.json())
   app.use(VerifyToken);
@@ -39,12 +46,15 @@ import 'dotenv/config'
   app.listen(PORT, () => {
     console.log(`app listening on port ${PORT}`)
   })
-  
+
+
   app.use('/api', phoneRoutes);
   app.use('/api', userRoutes);
   app.use('/api', groupRoutes);
   app.use('/api', peopleRoutes);
   app.use('/api', groupsPeopleRoutes);
+
+
 
 
 })();
