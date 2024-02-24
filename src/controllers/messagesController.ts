@@ -29,8 +29,8 @@ export async function create(req: Request, res: Response) {
     if (groups != undefined && user != undefined) {
         let newMessage = new Message();
         newMessage.name = name;
+        newMessage.groups.add(groups);
         newMessage.messageType = messageType;
-        newMessage.groups = groups;
         newMessage.message = message;
         newMessage.user = user;
 
