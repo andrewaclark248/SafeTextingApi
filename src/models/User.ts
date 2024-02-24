@@ -4,6 +4,7 @@ import { Entity, Property, PrimaryKey, OneToMany, Collection, ManyToOne } from "
 import { Group } from './Group'
 import { Organization } from './Organization'
 import { Phone } from './Phone'
+import { Message } from './Message'
 
 @Entity()
 export class User {
@@ -22,7 +23,10 @@ export class User {
 
     @OneToMany(() => Phone, phone => phone.user)
     phones = new Collection<Phone>(this);
-  
+
+    @OneToMany(() => Message, message => message.user)
+    messages = new Collection<Message>(this);
+    
 }
 //mikro-orm migration:up 
 // mikro-orm migration:create

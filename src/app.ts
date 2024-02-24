@@ -8,6 +8,7 @@ import userRoutes from './routes/api/userRoutes';
 import groupRoutes from './routes/api/groupRoutes';
 import peopleRoutes from './routes/api/peopleRoutes';
 import groupsPeopleRoutes from './routes/api/groupsPeopleRoutes';
+import messageRoutes from './routes/api/messageRoutes';
 
 
 import { initOrm } from './database'
@@ -53,7 +54,7 @@ dotenv.config({ path: `${__dirname}/.env` });
   app.use('/api', groupRoutes);
   app.use('/api', peopleRoutes);
   app.use('/api', groupsPeopleRoutes);
-
+  app.use('/api', messageRoutes);
 
 
 

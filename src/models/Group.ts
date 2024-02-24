@@ -2,6 +2,7 @@
 import { Entity, Property, PrimaryKey, ManyToOne, ManyToMany, Collection } from "@mikro-orm/core";
 import { User } from './User'
 import { People } from './People'
+import { Message } from './Message'
 
 @Entity()
 export class Group {
@@ -18,6 +19,8 @@ export class Group {
     @ManyToMany(() => People, 'groups', { owner: true })
     people = new Collection<People>(this);
 
+    @ManyToMany(() => Message, message => message.groups, { owner: true })
+    messages = new Collection<Message>(this);
 }
 
 //mikro-orm migration:up 
