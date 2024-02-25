@@ -28,16 +28,21 @@ import { People } from '../models/People'
     let user = await RequestContext.getEntityManager()?.findOne(User, { email: currentUserEmail })
 
     if (user) {
+        let formattedPhoneNumber = phoneNumber.replace("(", "");
+        formattedPhoneNumber = formattedPhoneNumber.replace(")", "");
+        formattedPhoneNumber = formattedPhoneNumber.replace(" ", "");
+        formattedPhoneNumber = formattedPhoneNumber.replace(" ", "");
+        formattedPhoneNumber = formattedPhoneNumber.replace("-", "");
+
         let people = new People();
         people.firstName = firstName;
         people.lastName = lastName;
-        people.phoneNumber = phoneNumber;
+        people.phoneNumber = formattedPhoneNumber;
         people.email = email;
         people.organization = user?.organization
     
     
         const persistPeople  = await RequestContext.getEntityManager()?.create(People, people);
-    
         await RequestContext.getEntityManager()?.persistAndFlush(persistPeople!);
 
         res.status(200).json({success: true, msg: "Successfully created person"})
