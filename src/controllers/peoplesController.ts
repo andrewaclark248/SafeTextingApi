@@ -79,3 +79,26 @@ import { People } from '../models/People'
 }
 
 
+
+// GET: /api/peoples
+/**
+ * Create person
+ *
+ * @returns array of people
+ */
+ export async function destroy(req: Request, res: Response) {
+    
+    //find person
+    const personId = Number(req.params.id);
+    const people  = await RequestContext.getEntityManager()?.findOne(People, {id: personId});
+
+    if (people) {
+        await RequestContext.getEntityManager()?.remove(people).flush();
+        res.status(200).json({success: true, people: people, msg: "Successfully created person"})
+    } else {
+        res.status(422).json({success: true, msg: "Could not find user"})
+    }
+
+}
+
+
