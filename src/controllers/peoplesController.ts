@@ -94,7 +94,65 @@ import { People } from '../models/People'
 
     if (people) {
         await RequestContext.getEntityManager()?.remove(people).flush();
-        res.status(200).json({success: true, people: people, msg: "Successfully created person"})
+        res.status(200).json({success: true, msg: "Successfully created person"})
+    } else {
+        res.status(422).json({success: true, msg: "Could not find user"})
+    }
+
+}
+
+
+
+
+// GET: /api/peoples
+/**
+ * Create person
+ *
+ * @returns array of people
+ */
+ export async function show(req: Request, res: Response) {
+    
+    //find person
+    const personId = Number(req.params.id);
+    const people  = await RequestContext.getEntityManager()?.findOne(People, {id: personId});
+
+    if (people) {
+        res.status(200).json({success: true, people: people})
+    } else {
+        res.status(422).json({success: true, msg: "Could not find user"})
+    }
+
+}
+
+
+
+// GET: /api/peoples
+/**
+ * Create person
+ *
+ * @returns array of people
+ */
+ export async function update(req: Request, res: Response) {
+     
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const phoneNumber = req.body.phoneNumber;
+    const email = req.body.email;
+
+    //find person
+    const personId = Number(req.params.id);
+    const people  = await RequestContext.getEntityManager()?.findOne(People, {id: personId});
+
+
+    if (people) {
+        people.firstName = firstName;
+        people.lastName = lastName;
+        people.phoneNumber = phoneNumber;
+        people.email = email;
+
+        await RequestContext.getEntityManager()?.flush();
+
+        res.status(200).json({success: true, msg: "Person was updated."})
     } else {
         res.status(422).json({success: true, msg: "Could not find user"})
     }
