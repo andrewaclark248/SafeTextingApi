@@ -60,3 +60,25 @@ export async function create(req: Request, res: Response) {
     
 }
 
+
+// GET: /api/peoples
+/**
+ * Create person
+ *
+ * @returns array of people
+ */
+ export async function destroy(req: Request, res: Response) {
+    
+    //find person
+    const groupId = Number(req.params.id);
+    const group  = await RequestContext.getEntityManager()?.findOne(Group, {id: groupId});
+
+    if (group) {
+        await RequestContext.getEntityManager()?.remove(group).flush();
+        res.status(200).json({success: true, msg: "Successfully created person"})
+    } else {
+        res.status(422).json({success: true, msg: "Could not find user"})
+    }
+
+}
+
