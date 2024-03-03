@@ -72,7 +72,7 @@ export async function create(req: Request, res: Response) {
     //find person
     const groupId = Number(req.params.id);
     const group  = await RequestContext.getEntityManager()?.findOne(Group, {id: groupId});
-
+    console.log("remove group", group)
     if (group) {
         await RequestContext.getEntityManager()?.remove(group).flush();
         res.status(200).json({success: true, msg: "Successfully created person"})
@@ -81,4 +81,59 @@ export async function create(req: Request, res: Response) {
     }
 
 }
+
+
+
+// GET: /api/peoples
+/**
+ * Create person
+ *
+ * @returns array of people
+ */
+ export async function show(req: Request, res: Response) {
+    
+    //find person
+    const groupId = Number(req.params.id);
+    const group  = await RequestContext.getEntityManager()?.findOne(Group, {id: groupId});
+
+    if (group) {
+        res.status(200).json({success: true, group: group})
+    } else {
+        res.status(422).json({success: true, msg: "Could not find user"})
+    }
+
+}
+
+
+
+// GET: /api/peoples
+/**
+ * Create person
+ *
+ * @returns array of people
+ */
+ export async function update(req: Request, res: Response) {
+     
+    const name = req.body.name;
+
+    //find person
+    const groupId = Number(req.params.id);
+    const group  = await RequestContext.getEntityManager()?.findOne(Group, {id: groupId});
+
+
+    if (group) {
+        group.name = name;
+
+        await RequestContext.getEntityManager()?.flush();
+
+        res.status(200).json({success: true, msg: "Group was updated."})
+    } else {
+        res.status(422).json({success: true, msg: "Could not find user"})
+    }
+
+}
+
+
+
+
 
